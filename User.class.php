@@ -4,16 +4,15 @@
  */
 
 class User {
-    private $dbHost     = DB_HOST;
-    private $dbUsername = DB_USERNAME;
-    private $dbPassword = DB_PASSWORD;
-    private $dbName     = DB_NAME;
+    private $dsn        = DATABASE_URL;
     private $userTbl    = DB_USER_TBL;
 
-    function __construct(){
-        if(!isset($this->db)){
+    function __construct()
+    {
+        if(!isset($this->db))
+        {
             // Connect to the database
-            $conn = new mysqli($this->dbHost, $this->dbUsername, $this->dbPassword, $this->dbName);
+            $conn = new PDO(DATABASE_URL);
             if($conn->connect_error){
                 die("Failed to connect with MySQL: " . $conn->connect_error);
             }else{
