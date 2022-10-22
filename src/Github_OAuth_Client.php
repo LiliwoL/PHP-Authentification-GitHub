@@ -64,7 +64,7 @@ class Github_OAuth_Client
         $apiURL = filter_var($access_token_url, FILTER_VALIDATE_URL)?$access_token_url:$this->apiURLBase.'user?access_token='.$access_token_url;
         $context  = stream_context_create([
             'http' => [
-                'user_agent' => 'CodexWorld GitHub OAuth Login',
+                'user_agent' => 'GitHub OAuth Login',
                 'header' => 'Accept: application/json'
             ]
         ]);
@@ -86,7 +86,7 @@ class Github_OAuth_Client
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Authorization: token '. $access_token));
-        curl_setopt($ch, CURLOPT_USERAGENT, 'CodexWorld GitHub OAuth Login');
+        curl_setopt($ch, CURLOPT_USERAGENT, 'GitHub OAuth Login');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         $api_response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);

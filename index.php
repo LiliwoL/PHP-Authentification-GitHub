@@ -3,7 +3,7 @@
 require_once ('init.php');
 
 // Initialize user class
-$user = new User();
+//$user = new User();
 
 // Initialize GitHub Client class
 $gitClient = new Github_OAuth_Client(array(
@@ -12,7 +12,8 @@ $gitClient = new Github_OAuth_Client(array(
     'redirect_uri' => REDIRECT_URL
 ));
 
-if(isset($accessToken)){
+if(isset($accessToken))
+{
     // Get the user profile data from Github
     $gitUser = $gitClient->getAuthenticatedUser($accessToken);
 
@@ -49,7 +50,8 @@ if(isset($accessToken)){
     }else{
         $output = '<h3 style="color:red">Something went wrong, please try again!</h3>';
     }
-}elseif(isset($_GET['code'])){
+}elseif(isset($_GET['code']))
+{
     // Verify the state matches the stored state
     if(!$_GET['state'] || $_SESSION['state'] != $_GET['state']) {
         header("Location: ".$_SERVER['PHP_SELF']);

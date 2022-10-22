@@ -7,7 +7,7 @@ require_once 'vendor/autoload.php';
 require_once 'config/config.php';
 
 // Include user class
-require_once 'User.class.php';
+//require_once 'User.class.php';
 
 // Include Github src client library
 require_once 'src/Github_OAuth_Client.php';
