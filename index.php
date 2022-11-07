@@ -35,6 +35,8 @@ if(isset($accessToken))
         $gitUserData['oauth_provider'] = 'github';
         $userData = $user->checkUser($gitUserData);
 
+        var_dump($userData);
+
         // Storing user data in the session
         $_SESSION['userData'] = $userData;
 
