@@ -16,7 +16,7 @@ class User
             // Connect to the database
             try {
                 $this->db = new PDO($this->dsn);
-                var_dump($this->db->query("SHOW TABLES;"));
+                var_dump($this->db->query("SELECT * FROM users;"));
             }catch (PDOException $e)
             {
                 die ('DB Error');
