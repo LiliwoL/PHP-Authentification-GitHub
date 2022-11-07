@@ -42,8 +42,8 @@ class User
             );
             $checkQuery->execute(
                 [
-                    'oauth_provider'          => $data['oauth_provider'],
-                    'oauth_uid'               => $data['oauth_uid']
+                    ':oauth_provider'          => $data['oauth_provider'],
+                    ':oauth_uid'               => $data['oauth_uid']
                 ]);
 
             // Add modified time to the data array
