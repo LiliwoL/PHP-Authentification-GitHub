@@ -31,7 +31,6 @@ class User
                 "SELECT * FROM ".$this->userTbl." 
                 WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid;"
             );
-
             $checkResult = $checkQuery->execute(
                 [
                     ':oauth_provider'   => $data['oauth_provider'],
@@ -52,14 +51,23 @@ class User
                 foreach($data as $key=>$val)
                 {
                     $pre = ($i > 0)?', ':'';
-                    $colvalSet .= $pre.$key."='".$this->db->real_escape_string($val)."'";
+                    $colvalSet .= $pre.$key."='".mysqli_escape_string($val)."'";
                     $i++;
                 }
-                $whereSql = " WHERE oauth_provider = '".$data['oauth_provider']."' AND oauth_uid = '".$data['oauth_uid']."'";
 
                 // Update user data in the database
-                $query = "UPDATE ".$this->userTbl." SET ".$colvalSet.$whereSql;
-                $update = $this->db->query($query);
+                $updateQuery = $this->db->prepare(
+                    "UPDATE ".$this->userTbl." 
+                    SET :colvalSet
+                    WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid;"
+                );
+                $updateResult = $updateQuery->execute(
+                    [
+                        ':oauth_provider'          => $data['oauth_provider'],
+                        ':oauth_uid'               => $data['oauth_uid'],
+                        ':colvalSet'               => $colvalSet
+                    ]);
+
             }else{
                 // Add created time to the data array
                 if(!array_key_exists('created',$data))
@@ -74,18 +82,27 @@ class User
                 {
                     $pre = ($i > 0)?', ':'';
                     $columns .= $pre.$key;
-                    $values  .= $pre."'". real $this->db->real_escape_string($val)."'";
+                    $values  .= $pre."'". mysqli_escape_string($val)."'";
                     $i++;
                 }
 
                 // Insert user data in the database
-                $query = "INSERT INTO ".$this->userTbl." (".$columns.") VALUES (".$values.")";
-                $insert = $this->db->query($query);
+                $insertQuery = $this->db->prepare(
+                    "INSERT INTO ".$this->userTbl." 
+                    (:columns)
+                    VALUES (:values);"
+                );
+                $insertResult = $insertQuery->execute(
+                    [
+                        ':oauth_provider'          => $data['oauth_provider'],
+                        ':oauth_uid'               => $data['oauth_uid'],
+                        ':columns'                 => $columns,
+                        ':values'               => $values
+                    ]);
             }
 
             // Get user data from the database
-            $result = $this->db->query($checkQuery);
-            $userData = $result->fetch_assoc();
+            $userData = $checkResult->fetcAll();
         }
 
         // Return user data
