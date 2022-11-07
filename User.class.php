@@ -82,6 +82,7 @@ class User
             {
                 var_dump("INSERT");
                 var_dump($this->db->query("SELECT * FROM users;"));
+
                 // Add created time to the data array
                 if(!array_key_exists('created',$data))
                 {
@@ -100,7 +101,7 @@ class User
                 }
 
                 // Insert user data in the database
-                $insertQuery = $this->db->execute(
+                $insertQuery = $this->db->query(
                     "INSERT INTO ".$this->userTbl." 
                     (" . $columns . ")
                     VALUES (" . $values . ");"
