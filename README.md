@@ -5,7 +5,7 @@
 ```bash
 composer install
 
-apt install php-sqlite3
+apt install php-sqlite3 php-curl curl
 
 service apache2 restart
 ```

@@ -22,13 +22,21 @@ class User
         }
     }
 
-    function checkUser($data = array())
+    function checkUser($data = array()): bool
     {
         if(!empty($data))
         {
             // Check whether the user already exists in the database
-            $checkQuery = "SELECT * FROM ".$this->userTbl." WHERE oauth_provider = '".$data['oauth_provider']."' AND oauth_uid = '".$data['oauth_uid']."'";
-            $checkResult = $this->db->query($checkQuery);
+            $checkQuery = $this->db->prepare(
+                "SELECT * FROM ".$this->userTbl." 
+                WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid;"
+            );
+
+            $checkResult = $checkQuery->execute(
+                [
+                    ':oauth_provider'   => $data['oauth_provider'],
+                    ':oauth_uid'               => $data['oauth_uid']
+                ]);
 
             // Add modified time to the data array
             if(!array_key_exists('modified',$data))
@@ -62,10 +70,11 @@ class User
                 // Prepare column and value format
                 $columns = $values = '';
                 $i = 0;
-                foreach($data as $key=>$val){
+                foreach($data as $key=>$val)
+                {
                     $pre = ($i > 0)?', ':'';
                     $columns .= $pre.$key;
-                    $values  .= $pre."'".$this->db->real_escape_string($val)."'";
+                    $values  .= $pre."'". real $this->db->real_escape_string($val)."'";
                     $i++;
                 }
 

@@ -98,8 +98,10 @@ class Github_OAuth_Client
         $api_response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        if($http_code != 200){
-            if (curl_errno($ch)) {
+        if($http_code != 200)
+        {
+            if (curl_errno($ch))
+            {
                 $error_msg = curl_error($ch);
             }else{
                 $error_msg = $api_response;
