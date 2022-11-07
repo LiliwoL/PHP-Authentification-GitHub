@@ -25,6 +25,8 @@ class User
 
     function checkUser($data = array()): bool
     {
+        var_dump($data);
+        die;
         if(!empty($data))
         {
             // Check whether the user already exists in the database
