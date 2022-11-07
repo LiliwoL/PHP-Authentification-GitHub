@@ -38,7 +38,7 @@ class User
             // Check whether the user already exists in the database
             $checkQuery = $this->db->prepare(
                 "SELECT * FROM ".$this->userTbl." 
-                WHERE oauth_provider = ':oauth_provider' AND oauth_uid = ':oauth_uid'' LIMIT 1;"
+                WHERE oauth_provider = ':oauth_provider' AND oauth_uid = ':oauth_uid' LIMIT 1;"
             );
             $checkQuery->execute(
                 [
