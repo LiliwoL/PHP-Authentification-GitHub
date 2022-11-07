@@ -1,5 +1,14 @@
 # Authentification d'une application avec GitHub
 
+## Dépendances
+
+```bash
+composer install
+
+apt install php-sqlite3
+
+service apache2 restart
+```
 
 ## Base de données
 

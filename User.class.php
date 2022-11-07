@@ -3,9 +3,11 @@
  * User Class
  */
 
-class User {
+class User
+{
     private $dsn        = DATABASE_URL;
     private $userTbl    = DB_USER_TBL;
+    private $db         = null;
 
     function __construct()
     {
@@ -13,7 +15,8 @@ class User {
         {
             // Connect to the database
             $conn = new PDO(DATABASE_URL);
-            if($conn->connect_error){
+            if($conn->connect_error)
+            {
                 die("Failed to connect with MySQL: " . $conn->connect_error);
             }else{
                 $this->db = $conn;
@@ -21,22 +24,27 @@ class User {
         }
     }
 
-    function checkUser($data = array()){
-        if(!empty($data)){
+    function checkUser($data = array())
+    {
+        if(!empty($data))
+        {
             // Check whether the user already exists in the database
             $checkQuery = "SELECT * FROM ".$this->userTbl." WHERE oauth_provider = '".$data['oauth_provider']."' AND oauth_uid = '".$data['oauth_uid']."'";
             $checkResult = $this->db->query($checkQuery);
 
             // Add modified time to the data array
-            if(!array_key_exists('modified',$data)){
+            if(!array_key_exists('modified',$data))
+            {
                 $data['modified'] = date("Y-m-d H:i:s");
             }
 
-            if($checkResult->num_rows > 0){
+            if($checkResult->num_rows > 0)
+            {
                 // Prepare column and value format
                 $colvalSet = '';
                 $i = 0;
-                foreach($data as $key=>$val){
+                foreach($data as $key=>$val)
+                {
                     $pre = ($i > 0)?', ':'';
                     $colvalSet .= $pre.$key."='".$this->db->real_escape_string($val)."'";
                     $i++;
@@ -48,7 +56,8 @@ class User {
                 $update = $this->db->query($query);
             }else{
                 // Add created time to the data array
-                if(!array_key_exists('created',$data)){
+                if(!array_key_exists('created',$data))
+                {
                     $data['created'] = date("Y-m-d H:i:s");
                 }
 
