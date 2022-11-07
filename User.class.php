@@ -101,6 +101,9 @@ class User
                     (" . $columns . ")
                     VALUES (" . $values . ");"
                 );
+                var_dump("INSERT INTO ".$this->userTbl." 
+                    (" . $columns . ")
+                    VALUES (" . $values . ");");
             }
 
             // Get user data from the database
