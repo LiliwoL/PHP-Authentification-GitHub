@@ -14,12 +14,10 @@ class User
         if(!isset($this->db))
         {
             // Connect to the database
-            $conn = new PDO(DATABASE_URL);
-            if($conn->connect_error)
-            {
-                die("Failed to connect with MySQL: " . $conn->connect_error);
-            }else{
-                $this->db = $conn;
+            try {
+                $this->db = new PDO(DATABASE_URL);
+            }catch (PDOException $e){
+                die ('DB Error');
             }
         }
     }
