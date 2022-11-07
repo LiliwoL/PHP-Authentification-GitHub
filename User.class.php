@@ -106,6 +106,8 @@ class User
 
             // Get user data from the database
             //$userData = $checkQuery->fetch();
+
+            var_dump($userData);
         }
 
         // Return user data
