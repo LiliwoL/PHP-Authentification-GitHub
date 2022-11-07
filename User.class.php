@@ -107,6 +107,8 @@ class User
             $userData = $checkQuery->fetchAll();
         }
 
+        var_dump($userData);
+
         // Return user data
         return !empty($userData)?$userData:false;
     }

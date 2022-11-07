@@ -82,7 +82,7 @@ if(isset($accessToken))
     // Render Github login button
     $output = '<a href="'.htmlspecialchars($authUrl).'"><img src="images/github-login.png"></a>';
 
-    // Display all users in database
+    // Display all existing users in database
     $output .= "<br><br>";
     $output .= $user->displayAll();
 }
