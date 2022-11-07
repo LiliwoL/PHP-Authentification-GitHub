@@ -96,7 +96,7 @@ class User
                 {
                     $pre = ($i > 0)?', ':'';
                     $columns .= $pre.$key;
-                    $values  .= $pre."'". mysqli_escape_string($val)."'";
+                    $values  .= $pre."'". $val."'";
                     $i++;
                 }
 
