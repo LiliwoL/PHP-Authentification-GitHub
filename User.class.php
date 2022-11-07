@@ -51,8 +51,6 @@ class User
             {
                 $data['modified'] = date("Y-m-d H:i:s");
             }
-            var_dump("Resulktt");
-            var_dump($checkQuery->fetchAll());
 
             if( sizeof($checkQuery->fetchAll()) > 0 )
             {
@@ -80,9 +78,6 @@ class User
             }
             else
             {
-                var_dump("INSERT");
-                var_dump($data);
-
                 // Add created time to the data array
                 if(!array_key_exists('created',$data))
                 {
@@ -124,6 +119,11 @@ class User
         );
         $checkQuery->execute([]);
 
-        var_dump($checkQuery->fetchAll());
+        $output = '';
+        foreach ($checkQuery-≥fetchAll() as $key=>$value)
+        {
+            $output .= $key . " --> " . $value . "<br>";
+        }
+        return $output;
     }
 }
