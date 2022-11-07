@@ -35,8 +35,6 @@ if(isset($accessToken))
         $gitUserData['oauth_provider'] = 'github';
         $userData = $user->checkUser($gitUserData);
 
-        var_dump($userData);
-
         // Storing user data in the session
         $_SESSION['userData'] = $userData;
 
@@ -85,8 +83,8 @@ if(isset($accessToken))
     $output = '<a href="'.htmlspecialchars($authUrl).'"><img src="images/github-login.png"></a>';
 
     // Display all existing users in database
-    $output .= "<br><br>";
-    $output .= $user->displayAll();
+    //$output .= "<br><br>";
+    //$output .= $user->displayAll();
 }
 ?>
 
