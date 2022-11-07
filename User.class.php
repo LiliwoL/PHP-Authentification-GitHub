@@ -31,7 +31,7 @@ class User
      * @param $data
      * @return bool
      */
-    function checkUser($data = array()): bool
+    function checkUser($data = array()): bool | array
     {
         if(!empty($data))
         {
