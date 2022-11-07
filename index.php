@@ -4,13 +4,14 @@ require_once ('init.php');
 
 // Initialize user class
 $user = new User();
+$output = '';
 
 // Initialize GitHub Client class
 $gitClient = new Github_OAuth_Client(
         array(
-            'client_id'     => CLIENT_ID,
-            'client_secret' => CLIENT_SECRET,
-            'redirect_uri'  => REDIRECT_URL
+            'CLIENT_ID'     => CLIENT_ID,
+            'CLIENT_SECRET' => CLIENT_SECRET,
+            'REDIRECT_URL'  => REDIRECT_URL
 ));
 
 if(isset($accessToken))

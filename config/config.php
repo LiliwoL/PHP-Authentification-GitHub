@@ -16,7 +16,8 @@ define('CLIENT_SECRET', $_ENV['CLIENT_SECRET']);
 define('REDIRECT_URL', $_ENV['REDIRECT_URL']);
 
 // Start session
-if(!session_id()){
+if(!session_id())
+{
     session_start();
 }
 
