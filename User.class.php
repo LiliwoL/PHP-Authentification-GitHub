@@ -106,11 +106,6 @@ class User
 
             // Get user data from the database
             //$userData = $checkQuery->fetch();
-            var_dump($checkQuery->queryString);
-            var_dump($data['oauth_provider']);
-            var_dump($data['oauth_uid']);
-            var_dump($checkQuery->debugDumpParams());
-            var_dump($userData);
         }
 
         // Return user data
