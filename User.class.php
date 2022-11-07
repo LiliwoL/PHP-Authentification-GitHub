@@ -44,10 +44,7 @@ class User
                 $data['modified'] = date("Y-m-d H:i:s");
             }
 
-            var_dump($checkQuery->fetchAll());
-            die;
-
-            if( sizeof($checkQuery->fetchAll()) )
+            if( empty($checkQuery->fetchAll()) )
             {
                 // Prepare column and value format
                 $colvalSet = '';
@@ -62,16 +59,14 @@ class User
                 // Update user data in the database
                 $updateQuery = $this->db->prepare(
                     "UPDATE ".$this->userTbl." 
-                    SET :colvalSet
+                    SET " . $colvalSet . "
                     WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid;"
                 );
-                $updateResult = $updateQuery->execute(
+                $updateQuery->execute(
                     [
                         'oauth_provider'          => $data['oauth_provider'],
-                        'oauth_uid'               => $data['oauth_uid'],
-                        'colvalSet'               => $colvalSet
+                        'oauth_uid'               => $data['oauth_uid']
                     ]);
-
             }
             else
             {
