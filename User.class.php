@@ -44,7 +44,7 @@ class User
                 $data['modified'] = date("Y-m-d H:i:s");
             }
 
-            if( sizeof($checkQuery->fetchAll()))
+            if( sizeof($checkQuery->fetchAll()) )
             {
                 // Prepare column and value format
                 $colvalSet = '';
@@ -93,12 +93,14 @@ class User
                     (:columns)
                     VALUES (:values);"
                 );
+                var_dump($insertQuery);
+
                 $insertResult = $insertQuery->execute(
                     [
                         'oauth_provider'          => $data['oauth_provider'],
                         'oauth_uid'               => $data['oauth_uid'],
                         'columns'                 => $columns,
-                        'values'               => $values
+                        'values'                  => $values
                     ]);
             }
 
