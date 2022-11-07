@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Class Github_OAuth_Client
  */
