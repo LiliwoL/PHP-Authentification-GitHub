@@ -110,4 +110,17 @@ class User
         // Return user data
         return !empty($userData)?$userData:false;
     }
+
+    function displayAll()
+    {
+        // Check whether the user already exists in the database
+        $checkQuery = $this->db->prepare(
+            "SELECT * FROM ".$this->userTbl.";"
+        );
+        $checkQuery->execute([]);
+
+        var_dump($checkQuery->fetchAll());
+
+
+    }
 }
