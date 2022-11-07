@@ -1,6 +1,7 @@
 {
     "require": {
         "vlucas/phpdotenv": "^5.5",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+      "ext-curl": "*"
     }
 }

@@ -32,11 +32,11 @@ class Github_OAuth_Client
     }
 
     /**
-     * Get the authorize URL
+     * Get authorize URL
      *
      * @returns a string
      */
-    public function getAuthorizeURL($state)
+    public function getAuthorizeURL($state): string
     {
         return $this->authorizeURL . '?' . http_build_query([
                 'client_id'         => $this->clientID,
@@ -50,7 +50,8 @@ class Github_OAuth_Client
      * Exchange token and code for an access token
      */
     public function getAccessToken($state, $oauth_code){
-        $token = self::apiRequest($this->tokenURL . '?' . http_build_query([
+        $token = self::apiRequest($this->tokenURL . '?' . http_build_query(
+            [
                 'client_id' => $this->clientID,
                 'client_secret' => $this->clientSecret,
                 'state' => $state,
@@ -64,7 +65,8 @@ class Github_OAuth_Client
      *
      * @return API results
      */
-    public function apiRequest($access_token_url){
+    public function apiRequest($access_token_url): API
+    {
         $apiURL = filter_var($access_token_url, FILTER_VALIDATE_URL)?$access_token_url:$this->apiURLBase.'user?access_token='.$access_token_url;
         $context  = stream_context_create([
             'http' => [
@@ -82,7 +84,8 @@ class Github_OAuth_Client
      *
      * @returns object
      */
-    public function getAuthenticatedUser($access_token) {
+    public function getAuthenticatedUser($access_token)
+    {
         $apiURL = $this->apiURLBase . '/user';
 
         $ch = curl_init();
