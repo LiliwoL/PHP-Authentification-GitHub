@@ -103,12 +103,21 @@ class User
                 );
             }
 
+            $checkQuery = $this->db->prepare(
+                "SELECT * FROM ".$this->userTbl." 
+                WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid;"
+            );
+            $checkQuery->execute(
+                [
+                    'oauth_provider'          => $data['oauth_provider'],
+                    'oauth_uid'               => $data['oauth_uid']
+                ]);
+
             // Get user data from the database
             $userData = $checkQuery->fetchAll();
         }
 
         var_dump($checkQuery->queryString);
-        var_dump($data['oauth_uid']);
 
         // Return user data
         return !empty($userData)?$userData:false;
