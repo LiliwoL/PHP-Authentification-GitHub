@@ -16,7 +16,7 @@ $gitClient = new Github_OAuth_Client(
 
 if(isset($accessToken))
 {
-    // Get the user profile data from Github
+    // Get the user profile data from GitHub
     $gitUser = $gitClient->getAuthenticatedUser($accessToken);
 
     if(!empty($gitUser))
