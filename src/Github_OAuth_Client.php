@@ -49,7 +49,8 @@ class Github_OAuth_Client
     /**
      * Exchange token and code for an access token
      */
-    public function getAccessToken($state, $oauth_code){
+    public function getAccessToken($state, $oauth_code)
+    {
         $token = self::apiRequest($this->tokenURL . '?' . http_build_query(
             [
                 'client_id' => $this->clientID,
