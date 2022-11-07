@@ -38,8 +38,6 @@ if(isset($accessToken))
         // Storing user data in the session
         $_SESSION['userData'] = $userData;
 
-        var_dump($gitUser);
-
         // Render Github profile data
         $output     = '<h2>GitHub Account Details</h2>';
         $output .= '<div class="ac-data">';

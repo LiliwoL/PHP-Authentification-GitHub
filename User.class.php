@@ -96,8 +96,6 @@ class User
 
                 $insertQuery->execute(
                     [
-                        'oauth_provider'          => $data['oauth_provider'],
-                        'oauth_uid'               => $data['oauth_uid']
                     ]);
             }
 
