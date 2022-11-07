@@ -63,9 +63,8 @@ class Github_OAuth_Client
     /**
      * Make an API request
      *
-     * @return API results
      */
-    public function apiRequest($access_token_url): API
+    public function apiRequest($access_token_url)
     {
         $apiURL = filter_var($access_token_url, FILTER_VALIDATE_URL)?$access_token_url:$this->apiURLBase.'user?access_token='.$access_token_url;
         $context  = stream_context_create([
