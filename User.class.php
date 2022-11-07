@@ -11,7 +11,7 @@ class User
 
     function __construct()
     {
-        if(!isset($this->db))
+        if(!isset($this->db) || is_null($this->db))
         {
             // Connect to the database
             try {
