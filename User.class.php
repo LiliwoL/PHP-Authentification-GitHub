@@ -80,6 +80,7 @@ class User
             }
             else
             {
+                var_dump("INSERT");
                 // Add created time to the data array
                 if(!array_key_exists('created',$data))
                 {
