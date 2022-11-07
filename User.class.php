@@ -16,6 +16,7 @@ class User
             // Connect to the database
             try {
                 $this->db = new PDO($this->dsn);
+                var_dump($this->db);
             }catch (PDOException $e)
             {
                 die ('DB Error');
