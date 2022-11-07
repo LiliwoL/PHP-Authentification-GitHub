@@ -11,7 +11,7 @@ define('DATABASE_URL', $_ENV['DATABASE_URL']);
 define('DB_USER_TBL', $_ENV['DB_USER_TBL']);
 
 // GitHub API configuration
-define('CLIENT_ID', $_ENV['DATABASE_URL']);
+define('CLIENT_ID', $_ENV['CLIENT_ID']);
 define('CLIENT_SECRET', $_ENV['CLIENT_SECRET']);
 define('REDIRECT_URL', $_ENV['REDIRECT_URL']);
 

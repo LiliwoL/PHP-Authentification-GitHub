@@ -39,10 +39,10 @@ class Github_OAuth_Client
     public function getAuthorizeURL($state)
     {
         return $this->authorizeURL . '?' . http_build_query([
-                'client_id' => $this->clientID,
-                'redirect_uri' => $this->redirectUri,
-                'state' => $state,
-                'scope' => 'user:email'
+                'client_id'         => $this->clientID,
+                'redirect_uri'      => $this->redirectUri,
+                'state'             => $state,
+                'scope'             => 'user:email'
             ]);
     }
 
