@@ -25,8 +25,6 @@ class User
 
     function checkUser($data = array()): bool
     {
-        var_dump($data);
-        die;
         if(!empty($data))
         {
             // Check whether the user already exists in the database
@@ -71,7 +69,9 @@ class User
                         'colvalSet'               => $colvalSet
                     ]);
 
-            }else{
+            }
+            else
+            {
                 // Add created time to the data array
                 if(!array_key_exists('created',$data))
                 {
@@ -92,17 +92,15 @@ class User
                 // Insert user data in the database
                 $insertQuery = $this->db->prepare(
                     "INSERT INTO ".$this->userTbl." 
-                    (:columns)
-                    VALUES (:values);"
+                    (" . $columns . ")
+                    VALUES (" . $values . ");"
                 );
                 var_dump($this->db);
 
                 $insertResult = $insertQuery->execute(
                     [
                         'oauth_provider'          => $data['oauth_provider'],
-                        'oauth_uid'               => $data['oauth_uid'],
-                        'columns'                 => $columns,
-                        'values'                  => $values
+                        'oauth_uid'               => $data['oauth_uid']
                     ]);
             }
 
