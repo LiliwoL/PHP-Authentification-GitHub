@@ -3,13 +3,14 @@
 require_once ('init.php');
 
 // Initialize user class
-//$user = new User();
+$user = new User();
 
 // Initialize GitHub Client class
-$gitClient = new Github_OAuth_Client(array(
-    'client_id' => CLIENT_ID,
-    'client_secret' => CLIENT_SECRET,
-    'redirect_uri' => REDIRECT_URL
+$gitClient = new Github_OAuth_Client(
+        array(
+            'client_id'     => CLIENT_ID,
+            'client_secret' => CLIENT_SECRET,
+            'redirect_uri'  => REDIRECT_URL
 ));
 
 if(isset($accessToken))
@@ -17,16 +18,17 @@ if(isset($accessToken))
     // Get the user profile data from Github
     $gitUser = $gitClient->getAuthenticatedUser($accessToken);
 
-    if(!empty($gitUser)){
+    if(!empty($gitUser))
+    {
         // Getting user profile details
-        $gitUserData = array();
-        $gitUserData['oauth_uid'] = !empty($gitUser->id)?$gitUser->id:'';
-        $gitUserData['name'] = !empty($gitUser->name)?$gitUser->name:'';
-        $gitUserData['username'] = !empty($gitUser->login)?$gitUser->login:'';
-        $gitUserData['email'] = !empty($gitUser->email)?$gitUser->email:'';
-        $gitUserData['location'] = !empty($gitUser->location)?$gitUser->location:'';
-        $gitUserData['picture'] = !empty($gitUser->avatar_url)?$gitUser->avatar_url:'';
-        $gitUserData['link'] = !empty($gitUser->html_url)?$gitUser->html_url:'';
+        $gitUserData                    = array();
+        $gitUserData['oauth_uid']       = !empty($gitUser->id)?$gitUser->id:'';
+        $gitUserData['name']            = !empty($gitUser->name)?$gitUser->name:'';
+        $gitUserData['username']        = !empty($gitUser->login)?$gitUser->login:'';
+        $gitUserData['email']           = !empty($gitUser->email)?$gitUser->email:'';
+        $gitUserData['location']        = !empty($gitUser->location)?$gitUser->location:'';
+        $gitUserData['picture']         = !empty($gitUser->avatar_url)?$gitUser->avatar_url:'';
+        $gitUserData['link']            = !empty($gitUser->html_url)?$gitUser->html_url:'';
 
         // Insert or update user data to the database
         $gitUserData['oauth_provider'] = 'github';
@@ -50,10 +52,12 @@ if(isset($accessToken))
     }else{
         $output = '<h3 style="color:red">Something went wrong, please try again!</h3>';
     }
+
 }elseif(isset($_GET['code']))
 {
     // Verify the state matches the stored state
-    if(!$_GET['state'] || $_SESSION['state'] != $_GET['state']) {
+    if(!$_GET['state'] || $_SESSION['state'] != $_GET['state'])
+    {
         header("Location: ".$_SERVER['PHP_SELF']);
     }
 
@@ -63,6 +67,7 @@ if(isset($accessToken))
     $_SESSION['access_token'] = $accessToken;
 
     header('Location: ./');
+
 }else{
     // Generate a random hash and store in the session for security
     $_SESSION['state'] = hash('sha256', microtime(TRUE) . rand() . $_SERVER['REMOTE_ADDR']);
