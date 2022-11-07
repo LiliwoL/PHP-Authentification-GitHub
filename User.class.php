@@ -51,6 +51,8 @@ class User
             {
                 $data['modified'] = date("Y-m-d H:i:s");
             }
+            var_dump("Resulktt");
+            var_dump($checkQuery->fetchAll());
 
             if( empty($checkQuery->fetchAll()) )
             {
