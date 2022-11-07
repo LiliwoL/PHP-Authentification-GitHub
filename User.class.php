@@ -108,6 +108,7 @@ class User
         }
 
         var_dump($checkQuery->queryString);
+        var_dump($data['oauth_uid']);
 
         // Return user data
         return !empty($userData)?$userData:false;
