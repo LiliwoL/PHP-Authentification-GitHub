@@ -4,9 +4,9 @@
  */
 class Github_OAuth_Client
 {
-    public $authorizeURL = "https://github.com/login/oauth/authorize";
-    public $tokenURL = "https://github.com/login/oauth/access_token";
-    public $apiURLBase = "https://api.github.com";
+    public $authorizeURL    = "https://github.com/login/oauth/authorize";
+    public $tokenURL        = "https://github.com/login/oauth/access_token";
+    public $apiURLBase      = "https://api.github.com";
     public $clientID;
     public $clientSecret;
     public $redirectUri;
@@ -14,18 +14,21 @@ class Github_OAuth_Client
     /**
      * Construct object
      */
-    public function __construct(array $config = []){
-        $this->clientID = isset($config['client_id']) ? $config['client_id'] : '';
-        if(!$this->clientID){
+    public function __construct(array $config = [])
+    {
+        $this->clientID = $config['CLIENT_ID'] ?? '';
+        if(!$this->clientID)
+        {
             die('Required "client_id" key not supplied in config');
         }
 
-        $this->clientSecret = isset($config['client_secret']) ? $config['client_secret'] : '';
-        if(!$this->clientSecret){
+        $this->clientSecret = $config['CLIENT_SECRET'] ?? '';
+        if(!$this->clientSecret)
+        {
             die('Required "client_secret" key not supplied in config');
         }
 
-        $this->redirectUri = isset($config['redirect_uri']) ? $config['redirect_uri'] : '';
+        $this->redirectUri = $config['REDIRECT_URL'] ?? '';
     }
 
     /**
@@ -33,7 +36,8 @@ class Github_OAuth_Client
      *
      * @returns a string
      */
-    public function getAuthorizeURL($state){
+    public function getAuthorizeURL($state)
+    {
         return $this->authorizeURL . '?' . http_build_query([
                 'client_id' => $this->clientID,
                 'redirect_uri' => $this->redirectUri,
