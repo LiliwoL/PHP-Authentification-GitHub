@@ -33,6 +33,7 @@ class User
      */
     function checkUser($data = array()): bool
     {
+        var_dump($data);
         if(!empty($data))
         {
             // Check whether the user already exists in the database
@@ -104,8 +105,6 @@ class User
             }
 
             // Get user data from the database
-            var_dump($checkQuery->queryString);
-            var_dump($checkQuery->fetchAll());
             $userData = $checkQuery->fetchAll();
         }
 
