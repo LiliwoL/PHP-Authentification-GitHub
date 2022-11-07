@@ -33,8 +33,8 @@ class User
             );
             $checkResult = $checkQuery->execute(
                 [
-                    ':oauth_provider'   => $data['oauth_provider'],
-                    ':oauth_uid'               => $data['oauth_uid']
+                    'oauth_provider'          => $data['oauth_provider'],
+                    'oauth_uid'               => $data['oauth_uid']
                 ]);
 
             // Add modified time to the data array
@@ -63,9 +63,9 @@ class User
                 );
                 $updateResult = $updateQuery->execute(
                     [
-                        ':oauth_provider'          => $data['oauth_provider'],
-                        ':oauth_uid'               => $data['oauth_uid'],
-                        ':colvalSet'               => $colvalSet
+                        'oauth_provider'          => $data['oauth_provider'],
+                        'oauth_uid'               => $data['oauth_uid'],
+                        'colvalSet'               => $colvalSet
                     ]);
 
             }else{
@@ -94,10 +94,10 @@ class User
                 );
                 $insertResult = $insertQuery->execute(
                     [
-                        ':oauth_provider'          => $data['oauth_provider'],
-                        ':oauth_uid'               => $data['oauth_uid'],
-                        ':columns'                 => $columns,
-                        ':values'               => $values
+                        'oauth_provider'          => $data['oauth_provider'],
+                        'oauth_uid'               => $data['oauth_uid'],
+                        'columns'                 => $columns,
+                        'values'               => $values
                     ]);
             }
 
