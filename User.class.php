@@ -120,7 +120,7 @@ class User
         $checkQuery->execute([]);
 
         $output = '';
-        foreach ($checkQuery->fetchAll() as $key=>$value)
+        foreach ($checkQuery->fetch() as $key=>$value)
         {
             $output .= $key . " --> " . $value . "<br>";
         }
