@@ -38,13 +38,14 @@ class User
             // Check whether the user already exists in the database
             $checkQuery = $this->db->prepare(
                 "SELECT * FROM ".$this->userTbl." 
-                WHERE oauth_provider = ':oauth_provider' AND oauth_uid = ':oauth_uid' LIMIT 1;"
+                WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid LIMIT 1;"
             );
             $checkQuery->execute(
                 [
                     ':oauth_provider'          => $data['oauth_provider'],
                     ':oauth_uid'               => $data['oauth_uid']
                 ]);
+            $userData = $checkQuery->fetch();
 
             // Add modified time to the data array
             if(!array_key_exists('modified',$data))
@@ -52,7 +53,7 @@ class User
                 $data['modified'] = date("Y-m-d H:i:s");
             }
 
-            if( sizeof($checkQuery->fetchAll()) > 0 )
+            if( $userData  )
             {
                 // Prepare column and value format
                 $colvalSet = '';
@@ -104,7 +105,7 @@ class User
             }
 
             // Get user data from the database
-            $userData = $checkQuery->fetch();
+            //$userData = $checkQuery->fetch();
             var_dump($checkQuery->queryString);
             var_dump($data['oauth_provider']);
             var_dump($data['oauth_uid']);
