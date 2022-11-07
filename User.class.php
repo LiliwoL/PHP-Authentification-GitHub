@@ -95,7 +95,6 @@ class User
                     (" . $columns . ")
                     VALUES (" . $values . ");"
                 );
-                var_dump($this->db);
 
                 $insertResult = $insertQuery->execute(
                     [
