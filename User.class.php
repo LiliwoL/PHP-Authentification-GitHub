@@ -32,7 +32,7 @@ class User
                 "SELECT * FROM ".$this->userTbl." 
                 WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid;"
             );
-            $checkResult = $checkQuery->execute(
+            $checkQuery->execute(
                 [
                     'oauth_provider'          => $data['oauth_provider'],
                     'oauth_uid'               => $data['oauth_uid']
@@ -96,7 +96,7 @@ class User
                     VALUES (" . $values . ");"
                 );
 
-                $insertResult = $insertQuery->execute(
+                $insertQuery->execute(
                     [
                         'oauth_provider'          => $data['oauth_provider'],
                         'oauth_uid'               => $data['oauth_uid']
@@ -120,7 +120,5 @@ class User
         $checkQuery->execute([]);
 
         var_dump($checkQuery->fetchAll());
-
-
     }
 }
