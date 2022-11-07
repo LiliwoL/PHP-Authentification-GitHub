@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/Users/nicolas/Documents/LILIWOL/Formation/PHP/PHP_OAuth_GitHub/sql/database.sqlite" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2798"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,5:mainusers"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE TABLE `users` (
+     `id` int(11) NOT NULL ,
+     `oauth_provider` TEXT CHECK( oauth_provider IN ('github', 'facebook', 'google', 'twitter')) NOT NULL DEFAULT 'github',
+     `oauth_uid` varchar(50) NOT NULL,
+     `name` varchar(50) NOT NULL,
+     `username` varchar(50) NOT NULL,
+     `email` varchar(100)  NOT NULL,
+     `location` varchar(50)  DEFAULT NULL,
+     `picture` varchar(255)  DEFAULT NULL,
+     `link` varchar(255)  DEFAULT NULL,
+     `created` TEXT NOT NULL DEFAULT (DATETIME('now')),
+     `modified` TEXT NOT NULL DEFAULT (DATETIME('now')),
+     PRIMARY KEY (`id`)
+);</sql><current_tab id="0"/></tab_sql></sqlb_project>
