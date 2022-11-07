@@ -15,7 +15,7 @@ class User
         {
             // Connect to the database
             try {
-                $this->db = new PDO(DATABASE_URL);
+                $this->db = new PDO($this->dsn);
             }catch (PDOException $e){
                 die ('DB Error');
             }

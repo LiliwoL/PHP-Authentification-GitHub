@@ -8,6 +8,7 @@ $dotenv->load();
 
 // Base de données
 define('DATABASE_URL', $_ENV['DATABASE_URL']);
+define('DB_USER_TBL', $_ENV['DB_USER_TBL']);
 
 // GitHub API configuration
 define('CLIENT_ID', $_ENV['DATABASE_URL']);
