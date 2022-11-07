@@ -103,7 +103,7 @@ class User
             }
 
             // Get user data from the database
-            $userData = $checkResult->fetcAll();
+            $userData = $checkQuery->fetchAll();
         }
 
         // Return user data
