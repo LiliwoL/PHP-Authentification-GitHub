@@ -104,11 +104,12 @@ class User
             }
 
             // Get user data from the database
-            var_dump($userData);
+            var_dump($checkQuery->queryString);
+            var_dump($checkQuery->fetchAll());
             $userData = $checkQuery->fetchAll();
         }
 
-        var_dump($checkQuery->queryString);
+
 
         // Return user data
         return !empty($userData)?$userData:false;
