@@ -54,7 +54,7 @@ class User
             var_dump("Resulktt");
             var_dump($checkQuery->fetchAll());
 
-            if( !empty($checkQuery->fetchAll()) )
+            if( sizeof($checkQuery->fetchAll()) > 0 )
             {
                 // Prepare column and value format
                 $colvalSet = '';
