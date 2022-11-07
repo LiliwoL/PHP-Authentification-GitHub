@@ -44,6 +44,9 @@ class User
                 $data['modified'] = date("Y-m-d H:i:s");
             }
 
+            var_dump($checkQuery->fetchAll());
+            die;
+
             if( sizeof($checkQuery->fetchAll()) )
             {
                 // Prepare column and value format
