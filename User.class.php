@@ -23,6 +23,14 @@ class User
         }
     }
 
+    /**
+     * Vérifie si l'utilisateur existe
+     * Si oui, il est mis à jour
+     * Sinon, il est créé
+     *
+     * @param $data
+     * @return bool
+     */
     function checkUser($data = array()): bool
     {
         if(!empty($data))
@@ -88,15 +96,11 @@ class User
                 }
 
                 // Insert user data in the database
-                $insertQuery = $this->db->prepare(
+                $insertQuery = $this->db->execute(
                     "INSERT INTO ".$this->userTbl." 
                     (" . $columns . ")
                     VALUES (" . $values . ");"
                 );
-
-                $insertQuery->execute(
-                    [
-                    ]);
             }
 
             // Get user data from the database
