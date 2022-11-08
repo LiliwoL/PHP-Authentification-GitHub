@@ -1,37 +1,53 @@
 # Authentification d'une application avec GitHub
 
+Dépôt pour découvrir l'authentification avec GitHub.
+
+***
+
 ## Dépendances
 
-```bash
-composer install
+Le serveur doit d'abord disposer des extensions php **sqlite et **curl****
 
+```bash
+# Extension PHP requises
 apt install php-sqlite3 php-curl curl
 
+# Redémarrage de Apache
 service apache2 restart
 ```
 
+Dans le projet, installez les librairies nécessaires
+
+```bash
+composer install
+```
+
+***
+
 ## Base de données
 
-Il est nécessaire de garder les informations de l'utilisateur qui réussit à se connecter via Github.
+Il est nécessaire de garder les informations de l'utilisateur qui réussit à se connecter via GitHub.
 Pour cela, on crée une table **users** dans la base.
 
 *sql/users.sql*
 ```sql
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `oauth_provider` enum('github','facebook','google','twitter') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'github',
-  `oauth_uid` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `location` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `picture` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created` datetime NOT NULL DEFAULT current_timestamp(),
-  `modified` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+`id` int(11) NOT NULL ,
+`oauth_provider` TEXT CHECK( oauth_provider IN ('github', 'facebook', 'google', 'twitter')) NOT NULL DEFAULT 'github',
+`oauth_uid` varchar(50) NOT NULL,
+`name` varchar(50) NOT NULL,
+`username` varchar(50) NOT NULL,
+`email` varchar(100)  NOT NULL,
+`location` varchar(50)  DEFAULT NULL,
+`picture` varchar(255)  DEFAULT NULL,
+`link` varchar(255)  DEFAULT NULL,
+`created` TEXT NOT NULL DEFAULT (DATETIME('now')),
+`modified` TEXT NOT NULL DEFAULT (DATETIME('now')),
+PRIMARY KEY (`id`)
+);
 ```
+
+***
 
 ## Classe Client OAuth de connexion
 
@@ -51,26 +67,47 @@ Méthodes:
 
 ## Classe de gestion des utilisateurs
 
+Méthodes:
+
+* Vérifie si l'utilisateur est déjà connu et inscrit en base
+* Affiche la liste des utilisateurs en base
+
+***
 
 ## Fichier de configuration
 
 Database constants:
 
-    DB_HOST – Specify the database host.
-    DB_USERNAME – Specify the database username.
-    DB_PASSWORD – Specify the database password.
-    DB_NAME – Specify the database name.
-    DB_USER_TBL – Specify the table name where the user’s account data will be stored.
+    # Lien vers le fichier sqlite de la base de données
+    DATABASE_URL="sqlite:sql/database.sqlite"
+    DB_USER_TBL="users"
 
-GitHub API constants:
-
+    # GitHub Constants
     CLIENT_ID – Specify the GitHub App Client ID.
     CLIENT_SECRET – Specify the GitHub App Client Secret.
     REDIRECT_URL – Specify the Authorization callback URL.
 
-Call GitHub API:
+***
 
-    The Github OAuth PHP Client library is used to connect with Github API and working with OAuth client.
-    Initialize Github_OAuth_Client class and pass Client ID, Secret, and Callback URL to connect with Github API and work with SDK.
+## Création d'une application GitHub
 
+Dans le compte GitHub, allez à:
+
+    Settings > Developper settings > OAuth Apps
+
+Puis, créez une nouvelle OAuthApp
+
+![doc/img.png](doc/img.png)
+
+    Application name
+    > Nom de l'application. Un nom qui va inspirer confiance aux utilisateurs
+
+    Homepage URL
+    > L'URL de l'application
+
+    Application description
+    > Description de votre application. Elle est présentées à tous les utilisateurs!
+
+    Authorization callback URL
+    > La page de callback après vérification de l'utilisateur
 
