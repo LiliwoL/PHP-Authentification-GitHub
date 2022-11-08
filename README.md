@@ -1,6 +1,14 @@
-# Authentification d'une application avec GitHub
+# Authentification avec GitHub OAuth API
 
-Dépôt pour découvrir l'authentification avec GitHub.
+Dépôt pour découvrir l'authentification avec GitHub OAuth API.
+
+Autres services d'authentification à proposer sur une application:
+* Facebook OAuth API
+* Google OAuth API
+* Twitter OAuth API
+* FranceConnect...
+
+GitHub permet ainsi à ses utilisateurs de se connecter à un site tiers en utilisant ses identifiants.
 
 ***
 
@@ -91,7 +99,7 @@ Database constants:
 
 ## Création d'une application GitHub
 
-Dans le compte GitHub, allez à:
+Connectez vous sur votre compte GitHub, allez à:
 
     Settings > Developper settings > OAuth Apps
 
@@ -111,3 +119,5 @@ Puis, créez une nouvelle OAuthApp
     Authorization callback URL
     > La page de callback après vérification de l'utilisateur
 
+Vous devrez générer un **Client ID** ainsi qu'un **Client Secret**.
+Ces informations seront à placer dans le fichier **.env** du projet.
