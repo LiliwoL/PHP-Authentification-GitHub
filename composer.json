@@ -1,8 +1,8 @@
 {
     "require": {
         "vlucas/phpdotenv": "^5.5",
-      "ext-pdo": "*",
-      "ext-curl": "*",
-      "ext-mysqli": "*"
+        "ext-pdo": "*",
+        "ext-curl": "*",
+        "ext-mysqli": "*"
     }
 }

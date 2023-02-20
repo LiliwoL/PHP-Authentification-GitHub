@@ -1,5 +1,6 @@
 .idea
 .DS_STORE
 .env*
+!.env.sample
 vendor/
 composer.lock
