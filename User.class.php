@@ -2,7 +2,6 @@
 /*
  * User Class
  */
-
 class User
 {
     private $dsn        = DATABASE_URL;
