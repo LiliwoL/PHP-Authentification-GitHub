@@ -8,11 +8,12 @@ $output = '';
 
 // Initialize GitHub Client class
 $gitClient = new Github_OAuth_Client(
-        array(
-            'CLIENT_ID'     => CLIENT_ID,
-            'CLIENT_SECRET' => CLIENT_SECRET,
-            'REDIRECT_URL'  => REDIRECT_URL
-));
+    array(
+        'CLIENT_ID'     => CLIENT_ID,
+        'CLIENT_SECRET' => CLIENT_SECRET,
+        'REDIRECT_URL'  => REDIRECT_URL
+    )
+);
 
 if(isset($accessToken))
 {
