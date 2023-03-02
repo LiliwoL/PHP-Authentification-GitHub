@@ -15,7 +15,7 @@ $gitClient = new Github_OAuth_Client(
     )
 );
 
-if(isset($_SESSION['access_token']))
+if(isset($accessToken))
 {
     /**
      * ETAPE 3. Validation du profil GitHub
@@ -24,7 +24,7 @@ if(isset($_SESSION['access_token']))
     // Get the user profile data from GitHub
     $gitUser = $gitClient->getAuthenticatedUser($accessToken);
 
-    var_dump($accessToken);
+    //var_dump($gitUser);
 
     if( !empty($gitUser) )
     {
@@ -61,7 +61,7 @@ if(isset($_SESSION['access_token']))
         $output = '<h3 style="color:red">Something went wrong, please try again!</h3>';
     }
 
-}elseif(isset($_GET['code']))
+}elseif( isset($_GET['code']) )
 {
     /**
      * ETAPE 2. Récupération du code fourni par GitHub
@@ -94,6 +94,18 @@ if(isset($_SESSION['access_token']))
     $accessToken = $gitClient->getAccessToken($_GET['state'], $_GET['code']);
 
     $_SESSION['access_token'] = $accessToken;
+
+    // *****
+    // Debug
+    // *****
+    $log = "\nEtape 2.2:\n";
+    $log .= "Génération AccessToken:\n";
+    $log .= "    access_token " . $accessToken . "\n";
+
+    file_put_contents(__DIR__ . '/var/log/oauth.log', print_r($log, true), FILE_APPEND);
+    // *****
+    // Debug
+    // *****
 
     header('Location: ./');
 

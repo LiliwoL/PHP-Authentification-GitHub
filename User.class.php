@@ -35,16 +35,17 @@ class User
         if(!empty($data))
         {
             // Check whether the user already exists in the database
-            $checkQuery = $this->db->prepare(
+            $checkQueryStatement = $this->db->prepare(
                 "SELECT * FROM ".$this->userTbl." 
                 WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid LIMIT 1;"
             );
-            $checkQuery->execute(
-                [
-                    ':oauth_provider'          => $data['oauth_provider'],
-                    ':oauth_uid'               => $data['oauth_uid']
-                ]);
-            $userData = $checkQuery->fetch();
+
+            // Dump params
+            $checkQueryStatement->bindParam(":oauth_provider", $data['oauth_provider']);
+            $checkQueryStatement->bindParam(":oauth_uid", $data['oauth_uid']);
+
+            $checkQueryStatement->execute();
+            $userData = $checkQueryStatement->fetch();
 
             // Add modified time to the data array
             if(!array_key_exists('modified',$data))
@@ -60,21 +61,24 @@ class User
                 foreach($data as $key=>$val)
                 {
                     $pre = ($i > 0)?', ':'';
-                    $colvalSet .= $pre.$key."='".mysqli_escape_string($val)."'";
+                    $colvalSet .= $pre.$key."=". $this->db->quote($val);
                     $i++;
                 }
 
-                // Update user data in the database
-                $updateQuery = $this->db->prepare(
-                    "UPDATE ".$this->userTbl." 
+                // Query string
+                $queryString = "UPDATE ".$this->userTbl." 
                     SET " . $colvalSet . "
-                    WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid;"
-                );
-                $updateQuery->execute(
-                    [
-                        'oauth_provider'          => $data['oauth_provider'],
-                        'oauth_uid'               => $data['oauth_uid']
-                    ]);
+                    WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid;";
+
+                // Update user data in the database
+                // https://www.php.net/manual/fr/pdo.prepare.php
+                $updateQueryStatement = $this->db->prepare($queryString);
+
+                // Dump params
+                $updateQueryStatement->bindParam(":oauth_provider", $data['oauth_provider']);
+                $updateQueryStatement->bindParam(":oauth_uid", $data['oauth_uid']);
+
+                $updateQueryStatement->execute();
             }
             else
             {
@@ -110,23 +114,28 @@ class User
 
     /**
      * @return string
+     * @TODO: Améliorer l'affichage
      */
     function displayAll()
     {
         // Check whether the user already exists in the database
         $checkQuery = $this->db->prepare(
-            "SELECT * FROM ".$this->userTbl.";"
+            'SELECT * FROM ' . $this->userTbl . ';'
         );
-        $checkQuery->execute([]);
+        $checkQuery->execute();
+
+        $results = $checkQuery->fetchAll();
 
         $output = '';
-        if (!$checkQuery->fetch())
-            return "Aucun user";
-
-        foreach ($checkQuery->fetch() as $key=>$value)
-        {
-            $output .= $key . " --> " . $value . "<br>";
+        if ( !sizeof($results) )
+            $output = "Aucun user";
+        else{
+            foreach ($results as $user)
+            {
+                $output .= print_r($user, true) . "<br>";
+            }
         }
+
         return $output;
     }
 }

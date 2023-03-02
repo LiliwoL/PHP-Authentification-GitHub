@@ -59,12 +59,18 @@ class Github_OAuth_Client
                 'state' => $state,
                 'code' => $oauth_code
             ]));
+
+        // @TODO: Gestion erreur
+        if (isset($token->error)){
+            var_dump($token->error_description);
+            die;
+        }
+
         return $token->access_token;
     }
 
     /**
      * Make an API request
-     *
      */
     public function apiRequest($access_token_url)
     {
