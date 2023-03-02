@@ -15,7 +15,7 @@ $gitClient = new Github_OAuth_Client(
     )
 );
 
-if(isset($accessToken))
+if(isset($_SESSION['access_token']))
 {
     /**
      * ETAPE 3. Validation du profil GitHub
@@ -26,7 +26,7 @@ if(isset($accessToken))
 
     var_dump($accessToken);
 
-    if(!empty($gitUser))
+    if( !empty($gitUser) )
     {
         // Getting user profile details
         $gitUserData                    = array();
@@ -67,6 +67,22 @@ if(isset($accessToken))
      * ETAPE 2. Récupération du code fourni par GitHub
      */
 
+    // *****
+    // Debug
+    // *****
+    $log = "\nEtape 2:\n";
+    $log .= "Reçu:\n";
+    $log .= "    code " . $_GET['code'] . "\n";
+    $log .= "    state " . $_GET['state'] . "\n";
+
+    $log .= "Session:\n";
+    $log .= "    state " . $_SESSION['state'] . "\n";
+
+    file_put_contents(__DIR__ . '/var/log/oauth.log', print_r($log, true), FILE_APPEND);
+    // *****
+    // Debug
+    // *****
+
 
     // Verify the state matches the stored state
     if(!$_GET['state'] || $_SESSION['state'] != $_GET['state'])
@@ -99,8 +115,9 @@ if(isset($accessToken))
     $output = '<h1>Etape 1</h1><br><br><a href="'.htmlspecialchars($authUrl).'"><img src="images/github-login.png"></a>';
 
     // Display all existing users in database
-    //$output .= "<br><br>";
-    //$output .= $user->displayAll();
+    $output .= "<br><br>";
+    $output .= "<h1>Liste des users déjà en base</h1>";
+    $output .= $user->displayAll();
 }
 ?>
 

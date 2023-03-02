@@ -108,6 +108,9 @@ class User
         return !empty($userData)?$userData:false;
     }
 
+    /**
+     * @return string
+     */
     function displayAll()
     {
         // Check whether the user already exists in the database
@@ -117,6 +120,9 @@ class User
         $checkQuery->execute([]);
 
         $output = '';
+        if (!$checkQuery->fetch())
+            return "Aucun user";
+
         foreach ($checkQuery->fetch() as $key=>$value)
         {
             $output .= $key . " --> " . $value . "<br>";
