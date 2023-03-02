@@ -81,7 +81,7 @@ if(isset($accessToken))
     $authUrl = $gitClient->getAuthorizeURL($_SESSION['state']);
 
     // Render Github login button
-    $output = '<a href="'.htmlspecialchars($authUrl).'"><img src="images/github-login.png"></a>';
+    $output = '<h1>Etape 1</h1><br><br><a href="'.htmlspecialchars($authUrl).'"><img src="images/github-login.png"></a>';
 
     // Display all existing users in database
     //$output .= "<br><br>";
