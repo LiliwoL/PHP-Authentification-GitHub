@@ -57,6 +57,11 @@ if(isset($accessToken))
 
 }elseif(isset($_GET['code']))
 {
+    /**
+     * ETAPE 2. Récupération du code fourni par GitHub
+     */
+
+
     // Verify the state matches the stored state
     if(!$_GET['state'] || $_SESSION['state'] != $_GET['state'])
     {
@@ -71,6 +76,10 @@ if(isset($accessToken))
     header('Location: ./');
 
 }else{
+    /**
+     * ETAPE 1.
+     */
+
     // Generate a random hash and store in the session for security
     $_SESSION['state'] = hash('sha256', microtime(TRUE) . rand() . $_SERVER['REMOTE_ADDR']);
 
