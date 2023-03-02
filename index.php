@@ -17,8 +17,14 @@ $gitClient = new Github_OAuth_Client(
 
 if(isset($accessToken))
 {
+    /**
+     * ETAPE 3. Validation du profil GitHub
+     */
+
     // Get the user profile data from GitHub
     $gitUser = $gitClient->getAuthenticatedUser($accessToken);
+
+    var_dump($accessToken);
 
     if(!empty($gitUser))
     {
