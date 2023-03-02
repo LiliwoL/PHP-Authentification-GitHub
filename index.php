@@ -83,7 +83,7 @@ if(isset($accessToken))
 
 }else{
     /**
-     * ETAPE 1.
+     * ETAPE 1. Affiche le bouton de connexion
      */
 
     // Generate a random hash and store in the session for security
