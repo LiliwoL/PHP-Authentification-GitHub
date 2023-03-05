@@ -127,8 +127,6 @@ if(isset($accessToken))
     $output = '<h1>Etape 1</h1><br><br><a href="'.htmlspecialchars($authUrl).'"><img src="images/github-login.png"></a>';
 
     // Display all existing users in database
-    $output .= "<br><br>";
-    $output .= "<h1>Liste des users déjà en base</h1>";
     $output .= $user->displayAll();
 }
 ?>

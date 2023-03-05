@@ -112,6 +112,7 @@ class User
         return !empty($userData)?$userData:false;
     }
 
+
     /**
      * @return string
      * @TODO: Améliorer l'affichage
@@ -126,13 +127,25 @@ class User
 
         $results = $checkQuery->fetchAll();
 
-        $output = '';
+        $output = "<br><br>";
         if ( !sizeof($results) )
-            $output = "Aucun user";
+        {
+            # Base de données vide
+            $output .= "<h1>Aucun utilisateur en base pour le moment</h1>";
+        }
         else{
+            $output .= "<h1>Liste des utilisateurs en base</h1>";
+
+            # Formatage pour chaque ligne d'utilisateur
+            $format = 'ID: %d &emsp;&emsp; | &emsp;&emsp; OAuthProvider: %s &emsp;&emsp; | &emsp;&emsp; OAuthUid: %d &emsp;&emsp; |  &emsp;&emsp; Name: %s &emsp;&emsp; |  &emsp;&emsp; Username: %s &emsp;&emsp; |  &emsp;&emsp; Created: %s';
+
             foreach ($results as $user)
             {
-                $output .= print_r($user, true) . "<br>";
+                $output .= sprintf( $format, $user['id'], $user['oauth_provider'], $user['oauth_uid'], $user['name'], $user['username'], $user['created']);
+                $output .= "<br>";
+
+                // Affichage brut
+                //$output .= print_r($user, true) . "<br>";
             }
         }
 

@@ -1,5 +1,7 @@
 # Authentification avec GitHub OAuth API
 
+![img.png](img.png)
+
 Dépôt pour découvrir l'authentification avec GitHub OAuth API.
 
 Autres services d'authentification à proposer sur une application:
