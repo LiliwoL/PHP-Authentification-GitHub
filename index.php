@@ -24,8 +24,6 @@ if(isset($accessToken))
     // Get the user profile data from GitHub
     $gitUser = $gitClient->getAuthenticatedUser($accessToken);
 
-    //var_dump($gitUser);
-
     if( !empty($gitUser) )
     {
         // Getting user profile details
@@ -38,8 +36,9 @@ if(isset($accessToken))
         $gitUserData['picture']         = !empty($gitUser->avatar_url)?$gitUser->avatar_url:'';
         $gitUserData['link']            = !empty($gitUser->html_url)?$gitUser->html_url:'';
 
-        // Insert or update user data to the database
         $gitUserData['oauth_provider'] = 'github';
+
+        // Insert or update user data to the database
         $userData = $user->checkUser($gitUserData);
 
         // Storing user data in the session
@@ -109,6 +108,13 @@ if(isset($accessToken))
 
     header('Location: ./');
 
+}elseif( isset($_GET['purge']) ){
+
+    // Purge de la base
+    $user->purge();
+
+
+    header('Location: ./');
 }else{
     /**
      * ETAPE 1. Affiche le bouton de connexion

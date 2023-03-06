@@ -8,6 +8,9 @@ class User
     private $userTbl    = DB_USER_TBL;
     private $db         = null;
 
+    /**
+     *
+     */
     function __construct()
     {
         if(!isset($this->db))
@@ -27,14 +30,16 @@ class User
      * Si oui, il est mis à jour
      * Sinon, il est créé
      *
-     * @param $data
+     * @param array $data
      * @return bool
      */
-    function checkUser($data = array())
+    function checkUser(array $data = array())
     {
         if(!empty($data))
         {
+            // ******
             // Check whether the user already exists in the database
+            // ******
             $checkQueryStatement = $this->db->prepare(
                 "SELECT * FROM ".$this->userTbl." 
                 WHERE oauth_provider = :oauth_provider AND oauth_uid = :oauth_uid LIMIT 1;"
@@ -53,8 +58,9 @@ class User
                 $data['modified'] = date("Y-m-d H:i:s");
             }
 
-            if( $userData  )
-            {
+            // If user exists
+            if( $userData ){
+
                 // Prepare column and value format
                 $colvalSet = '';
                 $i = 0;
@@ -99,17 +105,62 @@ class User
                     $i++;
                 }
 
-                // Insert user data in the database
-                $this->db->query(
-                    "INSERT INTO ".$this->userTbl." 
+                // Query string
+                $queryString = "INSERT INTO ".$this->userTbl." 
                     (" . $columns . ")
-                    VALUES (" . $values . ");"
-                );
+                    VALUES (" . $values . ");";
+
+                // Insert user data in the database
+                // https://www.php.net/manual/fr/pdo.prepare.php
+                $insertQueryStatement = $this->db->prepare($queryString);
+
+                $insertQueryStatement->execute();
+
+                // Récupération du dernier enregistrement pour renvoi ultérieur
+                $lastInsertId = $this->db->lastInsertId();
+
+                $userData = $this->findOne( $lastInsertId );
             }
         }
 
         // Return user data
         return !empty($userData)?$userData:false;
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function findOne( int $id ): array
+    {
+        // ******
+        // Find One user by its id
+        // ******
+        $findUserQueryStatement = $this->db->prepare(
+            "SELECT * FROM ".$this->userTbl." 
+                WHERE id = :id LIMIT 1;"
+        );
+
+        // Dump params
+        $findUserQueryStatement->bindParam(":id", $id);
+
+        $findUserQueryStatement->execute();
+        return $findUserQueryStatement->fetch();
+    }
+
+    /**
+     * @return bool
+     */
+    public function purge(): bool
+    {
+        // ******
+        // Purge query
+        // ******
+        $purgeQueryStatement = $this->db->prepare(
+            "DELETE FROM users WHERE 1;"
+        );
+
+        return $purgeQueryStatement->execute();
     }
 
 
@@ -147,6 +198,8 @@ class User
                 // Affichage brut
                 //$output .= print_r($user, true) . "<br>";
             }
+
+            $output .= '<a href="index.php?purge=true">Purge de la base</a>';
         }
 
         return $output;
