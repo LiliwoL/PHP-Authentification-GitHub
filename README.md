@@ -1,6 +1,6 @@
 # Authentification avec GitHub OAuth API
 
-![img.png](img.png)
+![doc/logo.png](doc/logo.png)
 
 Dépôt pour découvrir l'authentification avec GitHub OAuth API.
 
@@ -108,7 +108,7 @@ Connectez vous sur votre compte GitHub, allez à:
 Puis, créez une nouvelle OAuthApp
 
 ![doc/img.png](doc/img.png)
-![img_1.png](img_1.png)
+![doc/img_1.png](doc/img_1.png)
 
     Application name
     > Nom de l'application. Un nom qui va inspirer confiance aux utilisateurs
