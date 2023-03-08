@@ -59,7 +59,8 @@ class User
             }
 
             // If user exists
-            if( $userData ){
+            if( $userData )
+            {
 
                 // Prepare column and value format
                 $colvalSet = '';
@@ -89,7 +90,7 @@ class User
             else
             {
                 // Add created time to the data array
-                if(!array_key_exists('created',$data))
+                if( !array_key_exists('created', $data) )
                 {
                     $data['created'] = date("Y-m-d H:i:s");
                 }
@@ -116,6 +117,7 @@ class User
 
                 $insertQueryStatement->execute();
 
+                // die($insertQueryStatement->debugDumpParams());
                 // Récupération du dernier enregistrement pour renvoi ultérieur
                 $lastInsertId = $this->db->lastInsertId();
 
@@ -144,8 +146,18 @@ class User
         // Dump params
         $findUserQueryStatement->bindParam(":id", $id);
 
-        $findUserQueryStatement->execute();
-        return $findUserQueryStatement->fetch();
+        if ( $findUserQueryStatement->execute() )
+        {
+            $output = $findUserQueryStatement->fetch();
+
+            if (!$output){
+                $output = array();
+            }
+        }        
+        else{
+            $output = array();
+        }
+        return $output;
     }
 
     /**
