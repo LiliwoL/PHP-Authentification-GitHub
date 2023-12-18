@@ -13,14 +13,16 @@ class User
      */
     function __construct()
     {
-        if(!isset($this->db))
+        if( !isset($this->db) )
         {
             // Connect to the database
             try {
-                $this->db = new PDO($this->dsn);
+                $this->db = new PDO( $this->dsn );
             }catch (PDOException $e)
             {
-                die ('DB Error');
+                // Debug de l'erreur
+                var_dump( $e );
+                die ('Problème d\'accès à la base de données. Vérifier le DSN et les extensions PHP');
             }
         }
     }

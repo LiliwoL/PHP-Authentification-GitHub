@@ -1,8 +1,13 @@
 # Authentification avec GitHub OAuth API
 
-![doc/logo.png](doc/logo.png)
+![logo.png](doc/logo.png)
 
-Dépôt pour découvrir l'authentification avec GitHub OAuth API.
+[TOC]
+
+v 0.1
+
+
+Dépôt pour découvrir l'authentification avec **GitHub OAuth API**.
 
 Autres services d'authentification à proposer sur une application:
 * Facebook OAuth API
@@ -26,7 +31,11 @@ apt install php-sqlite3 php-curl curl
 service apache2 restart
 ```
 
-Dans le projet, installez les librairies nécessaires
+Pour vérifier que les dépendances sont bien présentes:
+
+![](./doc/php_modules.png)
+
+Dans le dossier du projet, installez les librairies nécessaires (composer doit être installé)
 
 ```bash
 composer install
@@ -35,6 +44,12 @@ composer install
 ***
 
 ## Base de données
+
+![](doc/83c9d9db.png)
+
+> Il sera nécessaire de disposer de l'outil **Db Browser** sur Windows ou sur la WSL
+>
+>     WSL: sudo apt install sqlitebrowser
 
 Il est nécessaire de garder les informations de l'utilisateur qui réussit à se connecter via GitHub.
 Pour cela, on crée une table **users** dans la base.
@@ -124,3 +139,6 @@ Puis, créez une nouvelle OAuthApp
 
 Vous devrez générer un **Client ID** ainsi qu'un **Client Secret**.
 Ces informations seront à placer dans le fichier **.env** du projet.
+
+
+![img_2.png](doc/img_2.png)php
