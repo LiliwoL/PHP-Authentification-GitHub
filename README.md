@@ -2,9 +2,8 @@
 
 ![logo.png](doc/logo.png)
 
-[TOC]
 
-v 0.1
+v 0.2
 
 
 Dépôt pour découvrir l'authentification avec **GitHub OAuth API**.
@@ -76,7 +75,7 @@ PRIMARY KEY (`id`)
 
 ## Classe Client OAuth de connexion
 
-*client/Github_OAuth_Client.php*
+*src/Github_OAuth_Client.php*
 
 C'est une classe PHP qui va gérer les appels REST API à gitHub.
 
